@@ -1,0 +1,6 @@
+
+GET http://geoprocessing.demo.52north.org:8080/javaps/rest/
+
+###
+
+GET https://www.bbc.co.uk
