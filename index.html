@@ -8,16 +8,31 @@
 
 <body>
 
-    <div class="nav-bar"></div>
-
     <div id="app">
         <p>{{ title }}</p>
-        <button @click="fetchLandingPage">Landing Page</button>
-        <p>{{ fetchStatus }}</p>
-        <pre>{{ landingJsonString }}</pre>
+
+        <button
+            v-for="tab in tabs"
+            :key="tab"
+            @click="currentTab = tab"
+            :class="['tab-button', { active: currentTab === tab }]"
+        >{{ tab }}</button>
+
+        <landing-page
+            :base-url="baseUrl"
+            @rx-landing-json="rxLandingJson"
+            v-show="currentTab === 'landing-page'"
+            class="tab"
+        ></landing-page>
+
+        <div
+            v-show="currentTab === 'fredbob'"
+            class="tab"
+        >This is fredbob</div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="landingPage.js"></script>
     <script src="main.js"></script>
 
 </body>
