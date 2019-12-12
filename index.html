@@ -11,6 +11,10 @@
     <div id="app">
         <p>{{ title }}</p>
 
+        <p>
+            <label for="">Base URL: <input type="text" v-model="baseUrl" size="100"></label>
+        </p>
+
         <button
             v-for="tab in tabs"
             :key="tab"
