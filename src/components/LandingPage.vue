@@ -39,44 +39,42 @@ export default {
   },
   methods: {
     fetchLandingPage() {
-      self = this;
       console.log("zzz CLICKED zzz");
-      self.fetchStatus = "FETCHING";
-      fetch(self.baseUrl + "/", {
+      this.fetchStatus = "FETCHING";
+      fetch(this.baseUrl + "/", {
         method: "GET",
         mode: "cors",
         headers: {
           accept: "application/json"
         }
       })
-        // fetch(self.baseUrl + "/")
-        .then(function(response) {
-          self.fetchStatus = "RESPONSE";
-          console.log(response);
-          if (response.ok) {
-            self.fetchStatus = "JSON";
-            response
-              .json()
-              .then(data => {
-                console.log(data);
-                console.log(JSON.stringify(data, null, 2));
-                self.landingJson = data;
-                self.fetchStatus += " [done]";
-                self.$emit("rx-landing-json", data);
-              })
-              .catch(error => {
-                console.error(error);
-                self.fetchStatus += " [error]";
-              });
-          } else {
-            console.error("bad response from 'landing page' endpoint");
-            self.fetchStatus += " [error]";
-          }
-        })
-        .catch(error => {
-          console.error(error);
-          self.fetchStatus += " [error]";
-        });
+      .then(response => {
+        this.fetchStatus = "RESPONSE";
+        console.log(response);
+        if (response.ok) {
+          this.fetchStatus = "JSON";
+          response
+            .json()
+            .then(data => {
+              console.log(data);
+              console.log(JSON.stringify(data, null, 2));
+              this.landingJson = data;
+              this.fetchStatus += " [done]";
+              this.$emit("rx-landing-json", data);
+            })
+            .catch(error => {
+              console.error(error);
+              this.fetchStatus += " [error]";
+            });
+        } else {
+          console.error("bad response from 'landing page' endpoint");
+          this.fetchStatus += " [error]";
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        this.fetchStatus += " [error]";
+      });
       console.log("ZZZ CLICKED ZZZ");
     }
   }
