@@ -12,7 +12,7 @@
         <p>{{ title }}</p>
 
         <p>
-            <label for="">Base URL: <input type="text" v-model="baseUrl" size="100"></label>
+            <label>Base URL: <input type="text" v-model="baseUrl" @input="baseUrlChange()" size="100"></label>
         </p>
 
         <button
@@ -25,14 +25,19 @@
         <landing-page
             :base-url="baseUrl"
             @rx-landing-json="rxLandingJson"
-            v-show="currentTab === 'landing-page'"
+            v-show="currentTab === 'Landing'"
             class="tab"
         ></landing-page>
 
         <div
-            v-show="currentTab === 'fredbob'"
+            v-show="currentTab === 'Processes'"
             class="tab"
-        >This is fredbob</div>
+        >This is the Processes tab</div>
+
+        <div
+            v-show="currentTab === 'Fredbob'"
+            class="tab"
+        >This is the FREDBOB tab</div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>

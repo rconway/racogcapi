@@ -7,7 +7,8 @@ Vue.component("landing-page", {
   },
   template: `
     <div>
-      <button @click="fetchLandingPage">FETCH Landing Page</button>
+      <p v-show="!validBaseUrl">Enter Base URL for landing page</p>
+      <button v-show="validBaseUrl" @click="fetchLandingPage">FETCH Landing Page</button>
       <p v-if="fetchStatus">{{ fetchStatus }}</p>
       <pre v-if="landingJson">{{ landingJsonString }}</pre>
     </div>
@@ -19,6 +20,17 @@ Vue.component("landing-page", {
     }
   },
   computed: {
+    validBaseUrl() {
+      try {
+        new URL(this.baseUrl)
+        console.log("baseUrl => valid")
+        return true
+      }
+      catch(e) {
+        console.log("baseUrl => BAD")
+        return false
+      }
+    },
     landingJsonString() {
       return JSON.stringify(this.landingJson, null, 2)
     }
