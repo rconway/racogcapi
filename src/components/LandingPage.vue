@@ -14,12 +14,15 @@ export default {
     baseUrl: {
       type: String,
       required: true
+    },
+    landingJson: {
+      // type: Object,
+      required: true
     }
   },
   data() {
     return {
-      fetchStatus: null,
-      landingJson: null
+      fetchStatus: null
     };
   },
   computed: {
@@ -40,6 +43,7 @@ export default {
   methods: {
     async fetchLandingPage() {
       console.log("zzz CLICKED zzz");
+      this.$emit("set-landing-json", null);
 
       try {
         this.fetchStatus = "FETCHING";
@@ -58,9 +62,8 @@ export default {
           let data = await response.json()
           console.log("data => " + data);
           console.log("dataJson => " + JSON.stringify(data, null, 2));
-          this.landingJson = data;
           this.fetchStatus += " [done]";
-          this.$emit("rx-landing-json", data);
+          this.$emit("set-landing-json", data);
         }
         else {
           console.error("bad response from 'landing page' endpoint");

@@ -18,7 +18,8 @@
 
     <landing-page
       :base-url="baseUrl"
-      @rx-landing-json="rxLandingJson"
+      :landing-json="siteData.landingJson"
+      @set-landing-json="setLandingJson"
       v-show="currentTab === 'Landing'"
       class="tab"
     ></landing-page>
@@ -54,10 +55,10 @@ export default {
     baseUrlChange() {
       // this.siteData = null
     },
-    rxLandingJson(value) {
+    setLandingJson(value) {
       this.siteData.landingJson = value;
       console.log(
-        "[rxLandingJson] => " +
+        "[setLandingJson] => " +
           JSON.stringify(this.siteData.landingJson, null, 2)
       );
     }
