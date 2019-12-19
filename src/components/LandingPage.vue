@@ -38,43 +38,40 @@ export default {
     }
   },
   methods: {
-    fetchLandingPage() {
+    async fetchLandingPage() {
       console.log("zzz CLICKED zzz");
-      this.fetchStatus = "FETCHING";
-      fetch(this.baseUrl + "/", {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          accept: "application/json"
-        }
-      })
-      .then(response => {
+
+      try {
+        this.fetchStatus = "FETCHING";
+        let response = await fetch(this.baseUrl + "/", {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            accept: "application/json"
+          }
+        })
         this.fetchStatus = "RESPONSE";
-        console.log(response);
+        console.log("response => " + response);
+
         if (response.ok) {
           this.fetchStatus = "JSON";
-          response
-            .json()
-            .then(data => {
-              console.log(data);
-              console.log(JSON.stringify(data, null, 2));
-              this.landingJson = data;
-              this.fetchStatus += " [done]";
-              this.$emit("rx-landing-json", data);
-            })
-            .catch(error => {
-              console.error(error);
-              this.fetchStatus += " [error]";
-            });
-        } else {
+          let data = await response.json()
+          console.log("data => " + data);
+          console.log("dataJson => " + JSON.stringify(data, null, 2));
+          this.landingJson = data;
+          this.fetchStatus += " [done]";
+          this.$emit("rx-landing-json", data);
+        }
+        else {
           console.error("bad response from 'landing page' endpoint");
           this.fetchStatus += " [error]";
         }
-      })
-      .catch(error => {
-        console.error(error);
+      }
+      catch(error) {
+        console.error("got an error => " + error);
         this.fetchStatus += " [error]";
-      });
+      }
+
       console.log("ZZZ CLICKED ZZZ");
     }
   }
