@@ -10,16 +10,9 @@
 <script>
 export default {
   name: "LandingPage",
-  props: {
-    baseUrl: {
-      type: String,
-      required: true
-    }
-  },
   data() {
     return {
-      fetchStatus: null,
-      landingJson: null
+      fetchStatus: null
     };
   },
   computed: {
