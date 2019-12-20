@@ -47,7 +47,8 @@ export default {
 
       try {
         this.fetchStatus = "FETCHING";
-        let response = await fetch(this.baseUrl + "/", {
+        let baseUrlFetched = this.baseUrl
+        let response = await fetch(baseUrlFetched + "/", {
           method: "GET",
           mode: "cors",
           headers: {
@@ -63,7 +64,7 @@ export default {
           console.log("data => " + data);
           console.log("dataJson => " + JSON.stringify(data, null, 2));
           this.fetchStatus += " [done]";
-          this.$emit("set-landing-json", data);
+          this.$emit("set-landing-json", baseUrlFetched, data);
         }
         else {
           console.error("bad response from 'landing page' endpoint");

@@ -18,7 +18,7 @@
 
     <landing-page
       :base-url="baseUrl"
-      :landing-json="siteData.landingJson"
+      :landing-json="activeSiteData.landingJson"
       @set-landing-json="setLandingJson"
       v-show="currentTab === 'Landing'"
       class="tab"
@@ -46,16 +46,28 @@ export default {
       tabs: ["Landing", "Processes", "Fredbob"],
       currentTab: "Landing",
       siteData: {
+        baseUrl: null,
         landingJson: null,
         processesUrl: null
       }
     };
   },
+  computed: {
+    activeSiteData() {
+      if (this.baseUrl === this.siteData.baseUrl) {
+        return this.siteData
+      }
+      else {
+        return {}
+      }
+    }
+  },
   methods: {
     baseUrlChange() {
       // this.siteData = null
     },
-    setLandingJson(value) {
+    setLandingJson(baseUrlFetched, value) {
+      this.siteData.baseUrl = baseUrlFetched;
       this.siteData.landingJson = value;
       console.log(
         "[setLandingJson] => " +
