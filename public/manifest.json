@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "OGC API Client",
+  "name": "OGC API Test Client",
   "icons": [
     {
       "src": "favicon.ico",
