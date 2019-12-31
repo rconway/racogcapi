@@ -1,8 +1,16 @@
 import React from "react";
+import ServiceSelector from "./components/ServiceSelector";
+import TabbedPane from "./components/TabbedPane";
 
 class App extends React.Component {
   render() {
-    return <div>OGC API Test Application</div>;
+    return (
+      <div>
+        <div>OGC API Test Application</div>
+        <ServiceSelector />
+        <TabbedPane />
+      </div>
+    );
   }
 }
 
