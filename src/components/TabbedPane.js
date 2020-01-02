@@ -3,17 +3,22 @@ import TabBar from "./TabBar";
 import LandingPage from "./LandingPage";
 
 class TabbedPane extends React.Component {
-  tabs = {
-    labels: ["Landing", "API", "Collections"],
-    contents: [
-      () => <LandingPage landingJson={this.props.landingJson} />,
-      () => <div>API Page</div>,
-      () => <div>Collections Page</div>
-    ]
-  };
-  state = {
-    selectedTab: 0
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedTab: 0
+    };
+  }
+
+  // Tab definitions.
+  // Each entry comprises a 2-D array as [<label>, <component-factory-function>].
+  tabs = new Map([
+    ["Landing", () => <LandingPage landingJson={this.props.landingJson} />],
+    ["API", () => <div>API Page</div>],
+    ["Collections", () => <div>Collections Page</div>]
+  ]);
+  tabLabelArray = Array.from(this.tabs.keys());
+  tabContentsArray = Array.from(this.tabs.values());
 
   setSelectedTab = index => {
     this.setState({ selectedTab: index });
@@ -24,11 +29,11 @@ class TabbedPane extends React.Component {
       <div>
         <div>TabbedPane - SELECTED={this.state.selectedTab}</div>
         <TabBar
-          tabs={this.tabs.labels}
+          tabs={this.tabLabelArray}
           selectedTab={this.state.selectedTab}
           setSelectedTab={this.setSelectedTab}
         />
-        {this.tabs.contents[this.state.selectedTab]()}
+        {this.tabContentsArray[this.state.selectedTab]()}
       </div>
     );
   }
