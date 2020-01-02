@@ -1,10 +1,15 @@
 import React from "react";
 import TabBar from "./TabBar";
+import LandingPage from "./LandingPage";
 
 class TabbedPane extends React.Component {
   tabs = {
-    labels: ["Fred", "Bob", "Larry"],
-    contents: [<div>Fred</div>, <div>Bob</div>, <div>Larry</div>]
+    labels: ["Landing", "API", "Collections"],
+    contents: [
+      () => <LandingPage landingJson={this.props.landingJson} />,
+      () => <div>API Page</div>,
+      () => <div>Collections Page</div>
+    ]
   };
   state = {
     selectedTab: 0
@@ -23,7 +28,7 @@ class TabbedPane extends React.Component {
           selectedTab={this.state.selectedTab}
           setSelectedTab={this.setSelectedTab}
         />
-        {this.tabs.contents[this.state.selectedTab]}
+        {this.tabs.contents[this.state.selectedTab]()}
       </div>
     );
   }
