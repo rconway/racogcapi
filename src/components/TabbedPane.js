@@ -1,6 +1,5 @@
 import React from "react";
 import TabBar from "./TabBar";
-import LandingPage from "./LandingPage";
 
 class TabbedPane extends React.Component {
   constructor(props) {
@@ -8,17 +7,16 @@ class TabbedPane extends React.Component {
     this.state = {
       selectedTab: 0
     };
-  }
 
-  // Tab definitions.
-  // Each entry comprises a 2-D array as [<label>, <component-factory-function>].
-  tabs = new Map([
-    ["Landing", () => <LandingPage landingJson={this.props.landingJson} />],
-    ["API", () => <div>API Page</div>],
-    ["Collections", () => <div>Collections Page</div>]
-  ]);
-  tabLabelArray = Array.from(this.tabs.keys());
-  tabContentsArray = Array.from(this.tabs.values());
+    this.tabLabelArray = [];
+    this.tabContentsArray = [];
+    React.Children.forEach(this.props.children, child => {
+      this.tabLabelArray.push(child.props.label);
+      this.tabContentsArray.push(child.props.contents);
+    });
+    console.log(this.tabLabelArray);
+    console.log(this.tabContentsArray);
+  }
 
   setSelectedTab = index => {
     this.setState({ selectedTab: index });
