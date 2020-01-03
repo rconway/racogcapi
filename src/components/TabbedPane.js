@@ -14,8 +14,6 @@ class TabbedPane extends React.Component {
       this.tabLabelArray.push(child.props.label);
       this.tabContentsArray.push(child.props.contents);
     });
-    console.log(this.tabLabelArray);
-    console.log(this.tabContentsArray);
   }
 
   setSelectedTab = index => {

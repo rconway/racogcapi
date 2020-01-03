@@ -7,7 +7,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      baseUrl: "http://geoprocessing.demo.52north.org:8080/javaps/rest",
+      baseUrl: null,
       baseUrlFetched: null,
       landingJson: null
     };
