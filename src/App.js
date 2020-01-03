@@ -8,14 +8,13 @@ class App extends React.Component {
     super(props);
     this.state = {
       baseUrl: null,
-      baseUrlFetched: null,
-      landingJson: null
+      site: {}
     };
   }
 
   setBaseUrl = baseUrl => {
     this.setState({ baseUrl: baseUrl });
-    if (baseUrl !== this.state.baseUrlFetched) {
+    if (baseUrl !== this.state.site.baseUrl) {
       this.fetchLandingPage(baseUrl);
     }
   };
@@ -38,19 +37,20 @@ class App extends React.Component {
 
       const data = await response.json();
       this.setState({
-        baseUrlFetched: attemptedBaseUrl,
-        landingJson: data
+        site: {
+          baseUrl: attemptedBaseUrl,
+          landingJson: data
+        }
       });
     } catch (error) {
       console.log(error);
       this.setState({
-        baseUrlFetched: null,
-        landingJson: null
+        site: {}
       });
     }
   };
 
-  landingPage = () => <LandingPage landingJson={this.state.landingJson} />;
+  landingPage = () => <LandingPage landingJson={this.state.site.landingJson} />;
   conformancePage = () => <div>Conformance Page</div>;
   apiPage = () => <div>API Page</div>;
   collectionsPage = () => <div>Collections Page</div>;
