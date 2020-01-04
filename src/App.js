@@ -2,21 +2,23 @@ import React from "react";
 import ServiceSelector from "./components/ServiceSelector";
 import TabbedPane from "./components/TabbedPane";
 import LandingPage from "./components/LandingPage";
+import NewLandingPage from "./components/NewLandingPage";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       baseUrl: null,
+      landingUrl: null,
       site: {}
     };
   }
 
   setBaseUrl = baseUrl => {
-    this.setState({ baseUrl: baseUrl });
-    if (baseUrl !== this.state.site.baseUrl) {
-      this.fetchLandingPage(baseUrl);
-    }
+    this.setState({ baseUrl: baseUrl, landingUrl: `${baseUrl}/` });
+    // if (baseUrl !== this.state.site.baseUrl) {
+    //   this.fetchLandingPage(baseUrl);
+    // }
   };
 
   fetchLandingPage = async baseUrl => {
@@ -51,6 +53,7 @@ class App extends React.Component {
   };
 
   landingPage = () => <LandingPage landingJson={this.state.site.landingJson} />;
+  newLandingPage = () => <NewLandingPage url={this.state.landingUrl} />;
   conformancePage = () => <div>Conformance Page</div>;
   apiPage = () => <div>API Page</div>;
   collectionsPage = () => <div>Collections Page</div>;
@@ -73,7 +76,8 @@ class App extends React.Component {
           />
         </ServiceSelector>
         <TabbedPane>
-          <tab label="Landing" contents={this.landingPage} />
+          {/* <tab label="Landing" contents={this.landingPage} /> */}
+          <tab label="NewLanding" contents={this.newLandingPage} />
           <tab label="Conformance" contents={this.conformancePage} />
           <tab label="API" contents={this.apiPage} />
           <tab label="Collections" contents={this.collectionsPage} />
