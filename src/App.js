@@ -2,7 +2,6 @@ import React from "react";
 import ServiceSelector from "./components/ServiceSelector";
 import TabbedPane from "./components/TabbedPane";
 import LandingPage from "./components/LandingPage";
-import NewLandingPage from "./components/NewLandingPage";
 
 class App extends React.Component {
   constructor(props) {
@@ -16,44 +15,9 @@ class App extends React.Component {
 
   setBaseUrl = baseUrl => {
     this.setState({ baseUrl: baseUrl, landingUrl: `${baseUrl}/` });
-    // if (baseUrl !== this.state.site.baseUrl) {
-    //   this.fetchLandingPage(baseUrl);
-    // }
   };
 
-  fetchLandingPage = async baseUrl => {
-    console.log(">> fetching new landing page <<");
-    const attemptedBaseUrl = baseUrl;
-    try {
-      const response = await fetch(attemptedBaseUrl + "/", {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          accept: "application/json"
-        }
-      });
-
-      if (!response.ok) {
-        throw new Error("problem retrieving landing page");
-      }
-
-      const data = await response.json();
-      this.setState({
-        site: {
-          baseUrl: attemptedBaseUrl,
-          landingJson: data
-        }
-      });
-    } catch (error) {
-      console.log(error);
-      this.setState({
-        site: {}
-      });
-    }
-  };
-
-  landingPage = () => <LandingPage landingJson={this.state.site.landingJson} />;
-  newLandingPage = () => <NewLandingPage url={this.state.landingUrl} />;
+  landingPage = () => <LandingPage url={this.state.landingUrl} />;
   conformancePage = () => <div>Conformance Page</div>;
   apiPage = () => <div>API Page</div>;
   collectionsPage = () => <div>Collections Page</div>;
@@ -76,8 +40,7 @@ class App extends React.Component {
           />
         </ServiceSelector>
         <TabbedPane>
-          {/* <tab label="Landing" contents={this.landingPage} /> */}
-          <tab label="NewLanding" contents={this.newLandingPage} />
+          <tab label="Landing" contents={this.landingPage} />
           <tab label="Conformance" contents={this.conformancePage} />
           <tab label="API" contents={this.apiPage} />
           <tab label="Collections" contents={this.collectionsPage} />
