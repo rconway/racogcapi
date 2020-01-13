@@ -56,6 +56,7 @@ class LandingPage extends React.Component {
   interpretLandingJson = () => {
     let { data } = this.state.landingPage;
     if (data && data.links) {
+      this.props.setSiteLinks(data.links);
       return data.links.map((link, index) => {
         return (
           <li key={index}>

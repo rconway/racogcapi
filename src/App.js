@@ -9,7 +9,7 @@ class App extends React.Component {
     this.state = {
       baseUrl: null,
       landingUrl: null,
-      site: {}
+      siteLinks: {}
     };
   }
 
@@ -17,14 +17,20 @@ class App extends React.Component {
     this.setState({ baseUrl: baseUrl, landingUrl: `${baseUrl}/` });
   };
 
-  landingPage = () => <LandingPage url={this.state.landingUrl} />;
+  landingPage = () => (
+    <LandingPage url={this.state.landingUrl} setSiteLinks={this.setSiteLinks} />
+  );
   conformancePage = () => <div>Conformance Page</div>;
   apiPage = () => <div>API Page</div>;
   collectionsPage = () => <div>Collections Page</div>;
 
+  setSiteLinks = links => {
+    console.log("SITE LINKS=>", links);
+  };
+
   render() {
     return (
-      <div>
+      <div className={`container-fluid`}>
         <div>OGC API Test Application</div>
         <ServiceSelector
           baseUrl={this.state.baseUrl}
